@@ -15,25 +15,13 @@
 function log(msg) {
     document.getElementById('log').textContent += msg + '\n';
 }
-/*
-http://www.w3.org/TR/geolocation-API/
-getCurrentPosition(
-    PositionCallback successCallback,
-    optional PositionErrorCallback errorCallback,
-    optional PositionOptions options);
-dictionary PositionOptions {
-    boolean enableHighAccuracy = false;
-    [Clamp] unsigned long timeout = 0xFFFFFFFF;
-    [Clamp] unsigned long maximumAge = 0;};
-*/
+
 function geo_success(position) {
-    // https://www.w3.org/TR/geolocation-API/#position
     log('Succès de la géoloc !');
     log('Latitude: ' + position.coords.latitude);
     log('Longitude: ' + position.coords.longitude);
 }
 function geo_error(positionerror) {
-    // https://www.w3.org/TR/geolocation-API/#position-error
     log('Erreur de géoloc !');
     log('Code: ' + positionerror.code);
     log('Message: ' + positionerror.message);
