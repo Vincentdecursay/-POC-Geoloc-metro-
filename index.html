@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html lang="fr">
+
+<head>
+<meta charset="utf-8">
+<title>geo</title>
+</head>
+
+<body>
+
+<pre id="log"></pre>
+
+<script>
+function log(msg) {
+    document.getElementById('log').textContent += msg + '\n';
+}
+/*
+http://www.w3.org/TR/geolocation-API/
+getCurrentPosition(
+    PositionCallback successCallback,
+    optional PositionErrorCallback errorCallback,
+    optional PositionOptions options);
+dictionary PositionOptions {
+    boolean enableHighAccuracy = false;
+    [Clamp] unsigned long timeout = 0xFFFFFFFF;
+    [Clamp] unsigned long maximumAge = 0;};
+*/
+function geo_success(position) {
+    // https://www.w3.org/TR/geolocation-API/#position
+    log('Succès de la géoloc !');
+    log('Latitude: ' + position.coords.latitude);
+    log('Longitude: ' + position.coords.longitude);
+}
+function geo_error(positionerror) {
+    // https://www.w3.org/TR/geolocation-API/#position-error
+    log('Erreur de géoloc !');
+    log('Code: ' + positionerror.code);
+    log('Message: ' + positionerror.message);
+}
+if (navigator.geolocation) {
+    const GPS_TIMEOUT_SEC = 60;
+    log('géolocalisation en cours [timeout ' + GPS_TIMEOUT_SEC  + ' sec]...');
+    navigator.geolocation.getCurrentPosition(
+        geo_success,
+        geo_error,
+        {enableHighAccuracy:true, timeout:GPS_TIMEOUT_SEC*1000, maximumAge:0}
+    )
+    } else {
+        log('API geolocation non supportée');
+}
+</script>
+
+</body>
+
+</html>
